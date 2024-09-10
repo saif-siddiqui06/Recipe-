@@ -1,0 +1,165 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <style>
+    body {
+      font-family: 'Arial', sans-serif;
+      background: linear-gradient(to right, #4CAF50, #45a049);
+      margin: 0;
+      padding: 20px;
+      color: #fff;
+    }
+
+    h2 {
+      color: #fff;
+      text-align: center;
+      font-size: 2em;
+      margin-bottom: 30px;
+    }
+
+    form {
+      display: flex;
+      justify-content: center;
+      gap: 15px;
+      margin-bottom: 30px;
+    }
+
+    input, select, button {
+      padding: 12px 15px;
+      border: none;
+      border-radius: 5px;
+      font-size: 1em;
+      outline: none;
+    }
+
+    input, select {
+      background-color: #f1f1f1;
+      color: #333;
+      width: 300px;
+    }
+
+    button {
+      background-color: #fff;
+      color: #4CAF50;
+      font-weight: bold;
+      cursor: pointer;
+      transition: background-color 0.3s ease;
+      border-radius: 5px;
+    }
+
+    button:hover {
+      background-color: #45a049;
+      color: #fff;
+    }
+
+    p {
+      line-height: 1.6;
+      color: #fff;
+      text-align: center;
+    }
+
+    /* Recipe Card Styling */
+    .recipe-card {
+      background-color: #fff;
+      color: #333;
+      padding: 20px;
+      border-radius: 10px;
+      box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+      margin: 20px auto;
+      width: 90%;
+      max-width: 500px;
+      text-align: center;
+      transition: transform 0.3s ease, box-shadow 0.3s ease;
+    }
+
+    .recipe-card:hover {
+      transform: translateY(-5px);
+      box-shadow: 0 6px 20px rgba(0, 0, 0, 0.15);
+    }
+
+    .recipe-card h3 {
+      font-size: 1.8em;
+      color: #4CAF50;
+      margin-bottom: 10px;
+    }
+
+    .recipe-card p {
+      font-size: 1em;
+      margin-bottom: 15px;
+      color : black ;
+    }
+
+    .details-link {
+      display: inline-block;
+      text-decoration: none;
+      color: #4CAF50;
+      background-color: #f1f1f1;
+      padding: 10px 20px;
+      border-radius: 5px;
+      font-weight: bold;
+      transition: background-color 0.3s ease, color 0.3s ease;
+    }
+
+    .details-link:hover {
+      background-color: #4CAF50;
+      color: #fff;
+    }
+
+    .food-icon {
+      font-size: 18px;
+      margin-right: 5px;
+    }
+
+    /* Media Queries for Responsive Design */
+    @media (max-width: 768px) {
+      input, select, button {
+        width: 80%;
+      }
+
+      .recipe-card {
+        width: 100%;
+      }
+    }
+  </style>
+
+  <h2>Recipe List</h2>
+
+  <!-- Search and Filter Form -->
+  <form method="get" action="{% url 'recipe_list' %}">
+    <input type="text" name="q" placeholder="Search...">
+    {% comment %} <select name="category">
+      <option value="" selected>All Categories</option>
+      <option value="breakfast">Breakfast</option>
+      <option value="lunch">Lunch</option>
+      <option value="dinner">Dinner</option>
+    </select> {% endcomment %}
+    <button type="submit" class="search-button"><i class="fas fa-search food-icon"></i> Apply Filters</button>
+  </form>
+
+  <!-- Display Search and Filter Results -->
+  {% if query %}
+    <p>Search results for "{{ query }}":</p>
+  {% endif %}
+  
+  {% if category %}
+    <p>Filter results for category "{{ category }}":</p>
+  {% endif %}
+  
+  <!-- Check if user is authenticated -->
+  {% if user.is_authenticated %}
+    <form method="post" action="{% url 'add_recipe' %}">
+      {% csrf_token %}
+      <button type="submit">Add Recipes</button>
+    </form>
+  {% endif %}
+
+  <!-- Loop through recipes and display them -->
+  {% for recipe in recipes %}
+    <div class="recipe-card">
+      <h3>{{ recipe.title }}</h3>
+      <p>{{ recipe.ingredients }}</p>
+      <p>Cooking Time: {{ recipe.cooking_time }} minutes</p>
+      <a href="{% url 'recipe_detail' recipe.id %}" class="details-link"><i class="fas fa-info-circle food-icon"></i> View Details</a>
+    </div>
+  {% endfor %}
+{% endblock %}

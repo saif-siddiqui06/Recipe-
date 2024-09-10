@@ -1,0 +1,226 @@
+<!-- recipe_detail.html -->
+{% extends 'base.html' %}
+
+{% block content %}
+<head>
+  <style>
+    /* Enhanced and more stylish styling for the recipe detail page */
+  
+    .recipe-detail-container {
+      max-width: 800px;
+      margin: 20px auto;
+      padding: 20px;
+      border-radius: 15px;
+      background-color: #f8f8f8;
+      box-shadow: 0 0 20px rgba(0, 0, 0, 0.1);
+      overflow: hidden;
+      color: #333;
+    }
+  
+    .recipe-detail-content {
+      width: 70%;
+      float: left;
+    }
+  
+    h2 {
+      color: #4CAF50;
+      font-size: 2.5em;
+      margin-bottom: 10px;
+    }
+  
+    .recipe-meta {
+      color: #888;
+      font-size: 0.9em;
+      margin-bottom: 20px;
+    }
+  
+    .recipe-ingredients,
+    .recipe-instructions {
+      line-height: 1.6;
+      margin: 10px 0;
+    }
+  
+    .ratings-section,
+    .comments-section {
+      margin-top: 30px;
+    }
+  
+    .ratings-section h3,
+    .comments-section h3 {
+      color: #4CAF50;
+      font-size: 1.5em;
+      margin-bottom: 15px;
+    }
+  
+    .ratings-section ul,
+    .comments-section ul {
+      list-style: none;
+      padding: 0;
+      margin: 0;
+    }
+  
+    .ratings-section li,
+    .comments-section li {
+      margin-bottom: 15px;
+    }
+  
+    .user-name {
+      color: #333;
+      font-weight: bold;
+      margin-right: 10px;
+    }
+  
+    .rating-stars {
+      color: #FFD700; /* Gold color for stars */
+      font-size: 1.2em;
+      margin-right: 5px;
+    }
+  
+    .rating-value {
+      color: #888;
+      font-size: 1.2em;
+    }
+  
+    .comment-text {
+      color: #555;
+    }
+  
+    .rating-form-section,
+    .comment-form-section {
+      margin-top: 30px;
+    }
+  
+    .rating-form-section h3,
+    .comment-form-section h3 {
+      color: #4CAF50;
+      font-size: 1.5em;
+      margin-bottom: 15px;
+    }
+  
+    .rating-form-section button,
+    .comment-form-section button {
+      background-color: #4CAF50;
+      color: white;
+      padding: 10px 20px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+  
+    .rating-form-section button:hover,
+    .comment-form-section button:hover {
+      background-color: #45a049;
+    }
+  
+    .home-button {
+      margin-top: 30px;
+      background-color: #4CAF50;
+      color: white;
+      padding: 12px 25px;
+      text-decoration: none;
+      border-radius: 8px;
+      display: inline-block;
+      float: right;
+      cursor: pointer;
+      transition: background-color 0.3s;
+    }
+  
+    .home-button:hover {
+      background-color: #45a049;
+    }
+  
+    @media (max-width: 768px) {
+      .recipe-detail-content {
+        width: 100%;
+        float: none;
+      }
+    }
+  </style>
+  
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+</head>
+  <div class="recipe-detail-container">
+    <div class="recipe-detail-content">
+      <h2>{{ recipe.title }}</h2>
+      <p class="recipe-meta">
+        <span>By {{ recipe.author.username }}</span> |
+        <span>Cooking Time: {{ recipe.cooking_time }} minutes</span> |
+        <span>Average Rating: {{ average_rating }}/5</span>
+        <span>Date: {{ recipe.created_at }}</span>
+      </p>
+      <p class="recipe-ingredients">{{ recipe.ingredients }}</p>
+      <p class="recipe-instructions">Instructions: {{ recipe.instructions }}</p>
+
+      <!-- Display Ratings -->
+      {% if ratings %}
+        <div class="ratings-section">
+          <h3>Ratings</h3>
+          <ul>
+            {% for rating in ratings %}
+            {% comment %} <li>
+              <span class="user-name">{{ rating.user.username }}</span>
+              
+              {% for _ in range(5) %}
+                  {% if forloop.counter <= rating.rating %}
+                      ★
+                  {% else %}
+                      ☆
+                  {% endif %}
+              {% endfor %}
+              
+              <span class="rating-value">{{ rating.rating }}/5</span>
+          </li> {% endcomment %}
+          
+            {% endfor %}
+          </ul>
+        </div>
+      {% endif %}
+
+      <!-- Display Comments -->
+      {% if comments %}
+        <div class="comments-section">
+          <h3>Comments</h3>
+          <ul>
+            {% for comment in comments %}
+              <li>
+                <span class="user-name">{{ comment.user.username }}</span>:
+                <span class="comment-text">{{ comment.text }}</span>
+              </li>
+            {% endfor %}
+          </ul>
+        </div>
+      {% endif %}
+
+      <!-- Display Rating Form -->
+      {% if user.is_authenticated %}
+        <div class="rating-form-section">
+          <h3>Leave a Rating</h3>
+          <form method="post" action="{% url 'add_rating' recipe.id %}">
+            {% csrf_token %}
+            {{ rating_form.as_p }}
+            <button type="submit">Rate Recipe</button>
+          </form>
+        </div>
+      {% endif %}
+
+      <!-- Display Comment Form -->
+      {% if user.is_authenticated %}
+        <div class="comment-form-section">
+          <h3>Leave a Comment</h3>
+          <form method="post" action="{% url 'add_comment' recipe.id %}">
+            {% csrf_token %}
+            {{ comment_form.as_p }}
+            <button type="submit">Add Comment</button>
+          </form>
+        </div>
+      {% endif %}
+    </div>
+    {% if user.is_authenticated %}
+        <button class="home-button"><a href="{% url 'edit_recipe' recipe.id %}">Edit Recipe</a></button>
+    {% endif %}
+  </div>
+
+
+
+{% endblock %}

@@ -1,0 +1,119 @@
+{% extends 'base.html' %}
+
+{% block content %}
+  <style>
+    .recipe-card {
+      max-width: 500px;
+      margin: 40px auto;
+      background-color: #fff;
+      padding: 30px;
+      border-radius: 10px;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+    }
+
+    .form-title {
+      text-align: center;
+      font-size: 24px;
+      margin-bottom: 20px;
+      color: #333;
+    }
+
+    .recipe-form {
+      display: flex;
+      flex-direction: column;
+    }
+
+    .form-group {
+      margin-bottom: 20px;
+    }
+
+    .form-label {
+      font-weight: bold;
+      color: #555;
+      margin-bottom: 8px;
+      display: block;
+    }
+
+    input[type="text"], textarea, input[type="number"] {
+      width: 100%;
+      padding: 12px;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+      font-size: 16px;
+      transition: border-color 0.3s;
+    }
+
+    input[type="text"]:focus, textarea:focus, input[type="number"]:focus {
+      border-color: #4CAF50;
+      outline: none;
+    }
+
+    textarea {
+      height: 120px;
+      resize: vertical;
+    }
+
+    .error-message {
+      color: #d9534f;
+      font-size: 14px;
+      margin-top: 5px;
+    }
+
+    .submit-button {
+      padding: 12px 20px;
+      background-color: #4CAF50;
+      color: white;
+      font-size: 16px;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      transition: background-color 0.3s;
+      width: 100%;
+    }
+
+    .submit-button:hover {
+      background-color: #45a049;
+    }
+
+    @media (max-width: 768px) {
+      .recipe-card {
+        margin: 20px;
+        padding: 20px;
+      }
+    }
+  </style>
+
+  <div class="recipe-card">
+    <h2 class="form-title">Add New Recipe</h2>
+    <form class="recipe-form" method="post">
+
+      {% csrf_token %}
+
+      <div class="form-group">
+        <label for="{{ form.title.id_for_label }}" class="form-label">Title:</label>
+        {{ form.title }}
+        <p class="error-message">{{ form.title.errors }}</p>
+      </div>
+
+      <div class="form-group">
+        <label for="{{ form.ingredients.id_for_label }}" class="form-label">Ingredients:</label>
+        {{ form.ingredients }}
+        <p class="error-message">{{ form.ingredients.errors }}</p>
+      </div>
+
+      <div class="form-group">
+        <label for="{{ form.instructions.id_for_label }}" class="form-label">Instructions:</label>
+        {{ form.instructions }}
+        <p class="error-message">{{ form.instructions.errors }}</p>
+      </div>
+
+      <div class="form-group">
+        <label for="{{ form.cooking_time.id_for_label }}" class="form-label">Cooking Time (in minutes):</label>
+        {{ form.cooking_time }}
+        <p class="error-message">{{ form.cooking_time.errors }}</p>
+      </div>
+
+      <button class="submit-button" type="submit">Add Recipe</button>
+    </form>
+  </div>
+{% endblock %}

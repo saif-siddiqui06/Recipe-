@@ -1,0 +1,403 @@
+{% extends 'base.html' %}
+{% load static %}
+
+{% block content %}
+<link rel="stylesheet" type="text/css" href="{% static 'css/styles.css' %}">
+<style>
+  /* Main Body Styling */
+  body {
+    font-family: 'Poppins', sans-serif; /* Improved typography */
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+
+  /* Quick Links */
+  .quick-links {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin: 20px 0;
+  }
+
+  .quick-links .link-item a {
+    text-decoration: none;
+    color: #333;
+    font-weight: bold;
+    padding: 10px 20px;
+    background-color: #f8f8f8;
+    border-radius: 5px;
+    transition: background-color 0.3s, transform 0.3s;
+  }
+
+  .quick-links .link-item a:hover {
+    background-color: #ddd;
+    transform: scale(1.05); /* Added hover effect */
+  }
+
+  /* Hero Section */
+  .hero-section {
+    background: url("{% static 'images/hero.jpg' %}") no-repeat center center/cover;
+    color: white;
+    text-align: center;
+    padding: 60px 20px;
+  }
+
+  .hero-content h1 {
+    font-size: 2.5em;
+    margin-bottom: 10px;
+    color: #32CD32; /* Slightly adjusted color for better contrast */
+  }
+
+  .hero-content p {
+    font-size: 1.2em;
+    margin-bottom: 20px;
+    color: #32CD32;
+  }
+
+  .hero-content .explore-button {
+    text-decoration: none;
+    color: white;
+    background-color: #ff6347;
+    padding: 10px 20px;
+    border-radius: 5px;
+    transition: background-color 0.3s, transform 0.3s;
+  }
+
+  .hero-content .explore-button:hover {
+    background-color: #e55347;
+    transform: scale(1.05); /* Subtle scale on hover */
+  }
+
+  /* Section Styles */
+  .featured-recipes, .about-section, .testimonial-section, .category-section {
+    padding: 40px 20px;
+    text-align: center;
+  }
+
+  .section-title {
+    font-size: 2em;
+    margin-bottom: 20px;
+  }
+
+  /* Recipe Cards */
+  .recipe-card-container {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    flex-wrap: wrap;
+  }
+
+  .recipe-card {
+    background: white;
+    box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+    border-radius: 10px;
+    overflow: hidden;
+    width: 300px;
+    transition: transform 0.3s, box-shadow 0.3s;
+  }
+
+  .recipe-card:hover {
+    transform: translateY(-10px);
+    box-shadow: 0 6px 12px rgba(0,0,0,0.15); /* Enhance hover effect */
+  }
+
+  .recipe-card img {
+    width: 100%;
+    height: 200px;
+    object-fit: cover;
+    transition: transform 0.3s; /* Smooth image transitions */
+  }
+
+  .recipe-card img:hover {
+    transform: scale(1.1); /* Zoom effect on hover */
+  }
+
+  .recipe-card h3 {
+    margin: 15px 0;
+    font-size: 1.5em;
+    color: #32CD32;
+  }
+
+  .recipe-card p {
+    padding: 0 15px;
+    font-size: 1em;
+    color: #555;
+  }
+
+  /* Testimonial Cards */
+  .testimonial-card {
+    background: #f8f8f8;
+    padding: 20px;
+    margin: 10px;
+    display: inline-block;
+    border-radius: 10px;
+    width: 300px;
+  }
+
+  .testimonial-card img {
+    border-radius: 50%;
+    width: 60px;
+    height: 60px;
+    margin-bottom: 10px;
+  }
+
+  .testimonial-card p {
+    font-size: 1em;
+    margin-bottom: 10px;
+    color: #333;
+  }
+
+  .testimonial-card span {
+    font-weight: bold;
+  }
+
+  /* Recipe Categories */
+  .category-section .recipe-category {
+    display: flex;
+    overflow-x: auto;
+    gap: 20px;
+    padding-bottom: 15px;
+  }
+
+  .recipe-card {
+    min-width: 250px; /* Adjust width as necessary */
+    flex-shrink: 0;
+  }
+
+  /* Add smooth scrolling */
+  html {
+    scroll-behavior: smooth;
+  }
+</style>
+
+<section class="quick-links">
+    <div class="link-item">
+        <a href="#breakfast">Breakfast</a>
+    </div>
+    <div class="link-item">
+        <a href="#lunch">Lunch</a>
+    </div>
+    <div class="link-item">
+        <a href="#snacks">Evening Snacks</a>
+    </div>
+    <div class="link-item">
+        <a href="#dinner">Dinner</a>
+    </div>
+</section>
+
+<section class="hero-section">
+    <div class="hero-content">
+        <h1>Welcome to My Recipe Book</h1>
+        <p>Discover and share delicious recipes with the community.</p>
+        <a href="{% url 'recipe_list' %}" class="explore-button">Explore Recipes</a>
+    </div>
+</section>
+
+
+
+
+<section class="featured-recipes">
+    <h2>Featured Recipes</h2>
+    <div class="recipe-card-container">
+        <div class="recipe-card">
+            <img src="{% static 'images/image.jpg' %}" alt="Recipe 1">
+            <h3>Delicious Pasta</h3>
+            <p>Classic pasta with homemade tomato sauce.</p>
+        </div>
+        <div class="recipe-card">
+            <img src="{% static 'images/salad.jpeg' %}" alt="Recipe 2">
+            <h3>Healthy Salad Bowl</h3>
+            <p>Fresh and vibrant salad with a mix of greens and toppings.</p>
+        </div>
+    </div>
+</section>
+
+<section class="about-section">
+    <h2>About My Recipe Book</h2>
+    <p>My Recipe Book is a platform where you can explore a variety of recipes shared by our community of food enthusiasts. Whether you're a seasoned chef or a beginner in the kitchen, there's something for everyone.</p>
+</section>
+
+<section class="testimonial-section">
+    <h2>What Our Users Say</h2>
+    <div class="testimonial-card">
+        <img src="https://example.com/user1.jpg" alt="User 1">
+        <p>"My Recipe Book has transformed the way I cook. I love the variety of recipes and the supportive community."</p>
+        <span>- Jane Doe</span>
+    </div>
+    <div class="testimonial-card">
+        <img src="https://example.com/user2.jpg" alt="User 2">
+        <p>"As a food lover, this platform has become my go-to for discovering new and exciting recipes. Highly recommended!"</p>
+        <span>- John Smith</span>
+    </div>
+</section>
+
+<section id="breakfast" class="category-section">
+    <h2>Breakfast Recipes</h2>
+    <div class="recipe-category" style="display: flex; overflow-x: auto; gap: 20px;">
+        <div class="recipe-card">
+            <img src="{% static 'images/1.jpeg' %}" alt="Blueberry Pancakes">
+            <h3>Blueberry Pancakes</h3>
+            <p>Fluffy pancakes with fresh blueberries.</p>
+            <div class="recipe-details">
+                <p><strong>Ingredients:</strong> Flour, Blueberries, Milk, Eggs, Sugar</p>
+                <p><strong>Cooking Time:</strong> 20 mins</p>
+            </div>
+        </div>
+        <div class="recipe-card">
+            <img src="{% static 'images/2.jpeg' %}" alt="Avocado Toast">
+            <h3>Avocado Toast</h3>
+            <p>Toasted bread topped with creamy avocado.</p>
+            <div class="recipe-details">
+                <p><strong>Ingredients:</strong> Bread, Avocado, Salt, Pepper, Lime</p>
+                <p><strong>Cooking Time:</strong> 10 mins</p>
+            </div>
+        </div>
+        <div class="recipe-card">
+            <img src="{% static 'images/3.jpeg' %}" alt="Breakfast Burrito">
+            <h3>Breakfast Burrito</h3>
+            <p>Hearty burrito filled with eggs, cheese, and veggies.</p>
+            <div class="recipe-details">
+                <p><strong>Ingredients:</strong> Tortilla, Eggs, Cheese, Bell Peppers, Onions</p>
+                <p><strong>Cooking Time:</strong> 15 mins</p>
+            </div>
+        </div>
+        <div class="recipe-card">
+            <img src="{% static 'images/4.jpeg' %}" alt="Fruit Smoothie">
+            <h3>Fruit Smoothie</h3>
+            <p>A refreshing blend of fruits and yogurt.</p>
+            <div class="recipe-details">
+                <p><strong>Ingredients:</strong> Bananas, Strawberries, Yogurt, Honey</p>
+                <p><strong>Cooking Time:</strong> 5 mins</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+<section id="lunch" class="category-section">
+    <h2>Lunch Recipes</h2>
+    <div class="recipe-category">
+        <div class="recipe-card">
+            <img src="{% static 'images/5.jpeg' %}" alt="Grilled Chicken Salad">
+            <h3>Grilled Chicken Salad</h3>
+            <p>Grilled chicken with mixed greens and vinaigrette.</p>
+            <div class="recipe-details">
+                <p><strong>Ingredients:</strong> Chicken Breast, Mixed Greens, Vinaigrette</p>
+                <p><strong>Cooking Time:</strong> 25 mins</p>
+            </div>
+        </div>
+        <div class="recipe-card">
+            <img src="{% static 'images/6.jpeg' %}" alt="Quinoa Bowl">
+            <h3>Quinoa Bowl</h3>
+            <p>Healthy quinoa with veggies and a light dressing.</p>
+            <div class="recipe-details">
+                <p><strong>Ingredients:</strong> Quinoa, Cherry Tomatoes, Cucumber, Feta Cheese</p>
+                <p><strong>Cooking Time:</strong> 20 mins</p>
+            </div>
+        </div>
+        <div class="recipe-card">
+            <img src="{% static 'images/7.jpeg' %}" alt="Veggie Wrap">
+            <h3>Veggie Wrap</h3>
+            <p>Whole wheat wrap filled with fresh vegetables and hummus.</p>
+            <div class="recipe-details">
+                <p><strong>Ingredients:</strong> Whole Wheat Tortilla, Hummus, Bell Peppers, Spinach</p>
+                <p><strong>Cooking Time:</strong> 10 mins</p>
+            </div>
+        </div>
+        <div class="recipe-card">
+            <img src="{% static 'images/8.jpeg' %}" alt="Tomato Basil Soup">
+            <h3>Tomato Basil Soup</h3>
+            <p>Classic tomato soup with fresh basil.</p>
+            <div class="recipe-details">
+                <p><strong>Ingredients:</strong> Tomatoes, Basil, Garlic, Onion, Cream</p>
+                <p><strong>Cooking Time:</strong> 30 mins</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="snacks" class="category-section">
+    <h2>Evening Snacks</h2>
+    <div class="recipe-category">
+        <div class="recipe-card">
+            <img src="{% static 'images/9.jpeg' %}" alt="Bruschetta">
+            <h3>Bruschetta</h3>
+            <p>Grilled bread topped with fresh tomatoes and basil.</p>
+            <div class="recipe-details">
+                <p><strong>Ingredients:</strong> Baguette, Tomatoes, Basil, Olive Oil</p>
+                <p><strong>Cooking Time:</strong> 15 mins</p>
+            </div>
+        </div>
+        <div class="recipe-card">
+            <img src="{% static 'images/10.jpeg' %}" alt="Stuffed Mushrooms">
+            <h3>Stuffed Mushrooms</h3>
+            <p>Mushrooms stuffed with a savory cheese filling.</p>
+            <div class="recipe-details">
+                <p><strong>Ingredients:</strong> Mushrooms, Cream Cheese, Garlic, Parsley</p>
+                <p><strong>Cooking Time:</strong> 20 mins</p>
+            </div>
+        </div>
+        <div class="recipe-card">
+            <img src="{% static 'images/11.jpeg' %}" alt="Guacamole">
+            <h3>Guacamole</h3>
+            <p>Creamy avocado dip with a hint of lime.</p>
+            <div class="recipe-details">
+                <p><strong>Ingredients:</strong> Avocados, Lime, Cilantro, Onions, Tomatoes</p>
+                <p><strong>Cooking Time:</strong> 10 mins</p>
+            </div>
+        </div>
+        <div class="recipe-card">
+            <img src="{% static 'images/12.jpeg' %}" alt="Fruit and Nut Mix">
+            <h3>Fruit and Nut Mix</h3>
+            <p>A healthy mix of dried fruits and nuts.</p>
+            <div class="recipe-details">
+                <p><strong>Ingredients:</strong> Almonds, Walnuts, Raisins, Dried Cranberries</p>
+                <p><strong>Cooking Time:</strong> 5 mins</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<section id="dinner" class="category-section">
+    <h2>Dinner Recipes</h2>
+    <div class="recipe-category">
+        <div class="recipe-card">
+            <img src="{% static 'images/13.jpeg' %}" alt="Spaghetti Bolognese">
+            <h3>Spaghetti Bolognese</h3>
+            <p>Rich and hearty spaghetti with meat sauce.</p>
+            <div class="recipe-details">
+                <p><strong>Ingredients:</strong> Spaghetti, Ground Beef, Tomatoes, Garlic, Onion</p>
+                <p><strong>Cooking Time:</strong> 40 mins</p>
+            </div>
+        </div>
+        <div class="recipe-card">
+            <img src="{% static 'images/14.jpeg' %}" alt="Grilled Salmon">
+            <h3>Grilled Salmon</h3>
+            <p>Perfectly grilled salmon with lemon and herbs.</p>
+            <div class="recipe-details">
+                <p><strong>Ingredients:</strong> Salmon, Lemon, Dill, Olive Oil</p>
+                <p><strong>Cooking Time:</strong> 25 mins</p>
+            </div>
+        </div>
+        <div class="recipe-card">
+            <img src="{% static 'images/15.jpeg' %}" alt="Vegetable Stir Fry">
+            <h3>Vegetable Stir Fry</h3>
+            <p>Quick and easy stir-fried vegetables with soy sauce.</p>
+            <div class="recipe-details">
+                <p><strong>Ingredients:</strong> Broccoli, Bell Peppers, Carrots, Soy Sauce</p>
+                <p><strong>Cooking Time:</strong> 20 mins</p>
+            </div>
+        </div>
+        <div class="recipe-card">
+            <img src="{% static 'images/16.jpeg' %}" alt="Beef Tacos">
+            <h3>Beef Tacos</h3>
+            <p>Soft tacos filled with seasoned beef and fresh toppings.</p>
+            <div class="recipe-details">
+                <p><strong>Ingredients:</strong> Ground Beef, Tortillas, Lettuce, Cheese, Salsa</p>
+                <p><strong>Cooking Time:</strong> 30 mins</p>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock %}

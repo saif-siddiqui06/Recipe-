@@ -1,0 +1,11 @@
+<!-- edit_recipe.html -->
+{% extends 'base.html' %}
+
+{% block content %}
+  <h2>Edit Recipe</h2>
+  <form method="post" action="{% url 'edit_recipe' recipe.id %}">
+    {% csrf_token %}
+    {{ form.as_p }}
+    <button type="submit">Update Recipe</button>
+  </form>
+{% endblock %}

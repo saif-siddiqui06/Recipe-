@@ -1,0 +1,5 @@
+<form method="post" action="{% url 'add_rating' recipe.id %}">
+  {% csrf_token %}
+  {{ form.as_p }}
+  <button type="submit">Rate Recipe</button>
+</form>

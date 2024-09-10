@@ -1,0 +1,184 @@
+/* Reset some default styles for better consistency */
+body, h1, h2, h3, p, ul, li {
+  margin: 0;
+  padding: 0;
+}
+
+/* Global Styles */
+body {
+  font-family: 'Arial', sans-serif;
+  background: #f8f8f8;
+  color: #333;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+/* Header Styles */
+header {
+  background-color: #4CAF50;
+  color: white;
+  padding: 1rem;
+  text-align: center;
+}
+
+/* Navigation Styles */
+nav {
+  display: flex;
+  justify-content: space-between;
+  background-color: #333;
+  padding: 1rem;
+}
+
+nav a {
+  color: white;
+  text-decoration: none;
+  padding: 0.5rem 1rem;
+  margin: 0 10px;
+  border-radius: 5px;
+}
+
+nav a:hover {
+  background-color: #555;
+}
+
+/* Hero Section Styles */
+.hero-section {
+  background: url('path/to/your/hero-image.jpg') center/cover no-repeat;
+  color: white;
+  text-align: center;
+  padding: 100px 0;
+}
+
+.hero-content h1 {
+  font-size: 2.5em;
+  margin-bottom: 20px;
+}
+
+.hero-content p {
+  font-size: 1.2em;
+  margin-bottom: 30px;
+}
+
+.explore-button {
+  display: inline-block;
+  padding: 10px 20px;
+  background-color: #4CAF50;
+  color: white;
+  text-decoration: none;
+  border-radius: 5px;
+  font-weight: bold;
+}
+
+.explore-button:hover {
+  background-color: #45a049;
+}
+
+/* Featured Recipes Section Styles */
+.featured-recipes {
+  padding: 40px 0;
+}
+
+.recipe-card-container {
+  display: flex;
+  justify-content: space-around;
+  flex-wrap: wrap;
+}
+
+.recipe-card {
+  width: 300px;
+  margin-bottom: 20px;
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  overflow: hidden;
+}
+
+.recipe-card img {
+  width: 100%;
+  height: 200px;
+  object-fit: cover;
+}
+
+.recipe-card h3 {
+  padding: 10px;
+  font-size: 1.5em;
+}
+
+.recipe-card p {
+  padding: 10px;
+  font-size: 1em;
+}
+
+/* About Section Styles */
+.about-section {
+  padding: 40px 0;
+}
+
+.about-section h2 {
+  font-size: 2em;
+  margin-bottom: 20px;
+}
+
+.about-section p {
+  font-size: 1.2em;
+  line-height: 1.6;
+  margin-bottom: 20px;
+}
+
+/* Testimonial Section Styles */
+.testimonial-section {
+  background-color: #f8f8f8;
+  padding: 40px 0;
+}
+
+.testimonial-card {
+  text-align: center;
+  margin-bottom: 40px;
+}
+
+.testimonial-card img {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  margin-bottom: 10px;
+}
+
+.testimonial-card p {
+  font-size: 1.2em;
+  margin-bottom: 20px;
+}
+
+.testimonial-card span {
+  font-weight: bold;
+  color: #4CAF50;
+}
+
+/* Quick Links Section Styles */
+.quick-links-container {
+  border: 1px solid #ddd;
+  border-radius: 8px;
+  margin: 20px 0;
+  padding: 10px;
+}
+
+.quick-links {
+  display: flex;
+  justify-content: space-around;
+}
+
+.link-item {
+  margin: 0 10px;
+}
+
+.link-item a {
+  text-decoration: none;
+  color: #333;
+  font-weight: bold;
+}
+
+.link-item a:hover {
+  color: #4CAF50;
+}
